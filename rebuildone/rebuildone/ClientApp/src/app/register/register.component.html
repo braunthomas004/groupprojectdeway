@@ -1,17 +1,32 @@
 <router-outlet></router-outlet>
-<mat-toolbar color="warn" class="flexing">
+Changed from the home component to the register component to see it.
+<div class="input-form">
   <form (submit)="submit(myform)" #myform="ngForm">
-    <div class="input-form">
-      <mat-form-field>
-        <input matInput placeholder="User name" name="username" [(ngModel)]="model.username" required>
-      </mat-form-field>&nbsp;&nbsp;
-      <mat-form-field>
-        <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="model.password" required>
-      </mat-form-field>&nbsp;&nbsp;
-      <mat-form-field>
-        <input matInput type="password" placeholder="Confirm Password" name="password" [(ngModel)]="model.password" required>
-      </mat-form-field>&nbsp;&nbsp;
-      <button mat-stroked-button type="submit">Register</button>&nbsp;&nbsp;&nbsp;&nbsp;<button mat-stroked-button type="reset">Cancel</button>
-    </div>
+    <hr />
+    <h1>Sign Up</h1>
+    <hr />
+    <mat-form-field>
+      <input matInput placeholder="User name" name="username" [(ngModel)]="model.username" required>
+    </mat-form-field><br />
+    <mat-form-field>
+      <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="model.password" required>
+    </mat-form-field><br />
+    <mat-form-field>
+      <input matInput type="confirmpassword" placeholder="Confirm Password" name="confirmpassword" [(ngModel)]="model.password" required>
+    </mat-form-field><br />
+    <mat-form-field type="gender">
+      <select matNativeControl required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </mat-form-field><br />
+    <mat-form-field>
+      <input matInput type="city" placeholder="City" name="city" [(ngModel)]="model.city" required>
+    </mat-form-field><br />
+   <mat-form-field>
+    <input matInput type="birthdate" placeholder="Date of Birth in mm/dd/yyyy" name="birthdate" [(ngModel)]="model.birthdate" required>
+    </mat-form-field><br />
+    <button mat-stroked-button type="submit">Register</button>&nbsp;&nbsp;&nbsp;&nbsp;<button mat-stroked-button type="reset">Cancel</button>
+
   </form>
-</mat-toolbar>
+</div>
