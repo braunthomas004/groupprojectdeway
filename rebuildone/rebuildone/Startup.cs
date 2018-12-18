@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using rebuildone.Data;
 using rebuildone.Models;
 using System;
+using Newtonsoft.Json;
 
 namespace rebuildone
 {
@@ -29,7 +30,10 @@ namespace rebuildone
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(opt => {
+                opt.SerializerSettings.ReferenceLoopHandling =
+                         Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            }); ;
             services.AddDbContext<Data.DbContext>(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentityCore<User>(options => {
@@ -43,6 +47,8 @@ namespace rebuildone
             })
             .AddEntityFrameworkStores<Data.DbContext>()
             .AddSignInManager<SignInManager<User>>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
             var key = Encoding.ASCII.GetBytes("Testable Secret Key");
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -60,6 +66,7 @@ namespace rebuildone
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

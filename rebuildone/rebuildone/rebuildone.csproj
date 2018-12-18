@@ -10,6 +10,7 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <UserSecretsId>98b0d3cc-f8dc-415f-8170-eb2cec6cda1b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +27,11 @@
 
   <ItemGroup>
     <None Include="e2e\tsconfig.e2e.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\app\services\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

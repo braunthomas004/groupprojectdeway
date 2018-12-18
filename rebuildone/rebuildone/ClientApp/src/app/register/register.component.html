@@ -8,8 +8,10 @@
       <mat-form-field>
         <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="model.password" required>
       </mat-form-field>&nbsp;&nbsp;
-      <button mat-stroked-button type="submit">Login</button>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Confirm Password" name="password" [(ngModel)]="model.password" required>
+      </mat-form-field>&nbsp;&nbsp;
+      <button mat-stroked-button type="submit">Register</button>&nbsp;&nbsp;&nbsp;&nbsp;<button mat-stroked-button type="reset">Cancel</button>
     </div>
   </form>
 </mat-toolbar>
-

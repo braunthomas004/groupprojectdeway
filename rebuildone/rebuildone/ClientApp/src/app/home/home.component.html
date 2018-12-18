@@ -1,0 +1,5 @@
+<router-outlet></router-outlet>
+<form (submit)="submit(myform)" #myform="ngForm">
+  Welcome to the app, if you are a new user please click Sign Up!<br />
+     <button mat-stroked-button (click)="router.navigate(['./register/register.component.html']);">Sign Up!</button>
+</form>

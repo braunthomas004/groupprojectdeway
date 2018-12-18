@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 
 namespace rebuildone.Controllers
 {
@@ -58,13 +59,13 @@ namespace rebuildone.Controllers
 
             User newUser = new User { UserName = user.UserName };
             var result = await _userManager.CreateAsync(newUser, user.Password);
-
+            
             if (result.Succeeded)
             {
                 return Ok(new { Msg = "Registration succeeded", User = newUser.UserName, ID = newUser.Id });
             }
             return BadRequest(result);
-
+            return await SeedDb();
         }
 
         private string BuildToken(LoginDTO user)
@@ -84,5 +85,21 @@ namespace rebuildone.Controllers
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+        private async Task<IActionResult> SeedDb()
+        {
+            var userData = System.IO.File.ReadAllText("Data/UserData.json");
+            var users = JsonConvert.DeserializeObject<List<User>>(userData);
+
+            foreach (var user in users)
+            {
+                user.UserName = user.UserName.ToLower();
+                string pw = user.PasswordHash;
+                user.PasswordHash = null;
+                await _userManager.CreateAsync(user, pw);
+            }
+            return Ok("DB seeded");
+
+        }
+        
     }
 }
